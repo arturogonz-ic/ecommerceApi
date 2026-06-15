@@ -12,7 +12,11 @@ import suggestionsRouter from './suggestions/router/index.js';
 
 const app = express();
 
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:3001'], credentials: true }));
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? ['https://arturogonz-ic.github.io']
+  : ['http://localhost:3000', 'http://localhost:3001'];
+
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static('uploads'));

@@ -2,9 +2,11 @@ import * as userService from '../service/index.js';
 import { registerSchema, loginSchema, updateAddressSchema } from '../validation/index.js';
 import { success } from '../../shared/response/index.js';
 
+const isProd = process.env.NODE_ENV === 'production';
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  sameSite: 'strict',
+  sameSite: isProd ? 'none' : 'lax',
+  secure: isProd,
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
@@ -31,7 +33,7 @@ export const login = async (req, res, next) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie('user_token');
+  res.clearCookie('user_token', { sameSite: isProd ? 'none' : 'lax', secure: isProd });
   res.json(success(null));
 };
 
