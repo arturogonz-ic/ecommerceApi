@@ -10,10 +10,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@11.6.0",
-  "engines": {
-    "node": ">=20"
-  },
   "type": "module",
   "dependencies": {
     "bcryptjs": "^3.0.3",
